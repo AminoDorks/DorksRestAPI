@@ -17,8 +17,8 @@ const createNVContext = (NVClass, appContext, Context) => {
             getService: function (_str) {
                 return null;
             },
-            startActivity: function (intent) {
-                console.log('[*] startActivity(intent):', intent.toString());
+            startActivity: function (_intent) {
+                
             }
         }
     });

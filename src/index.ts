@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import { PINO } from './constants';
 import { connectAdb, loadFridaAgent } from './utils/fridaWrapper';
 import { refreshData } from './utils/refresh';
+import { admin } from './modules/admin';
 
 config({ path: '../.env', quiet: true });
 
@@ -13,7 +14,7 @@ config({ path: '../.env', quiet: true });
     await loadFridaAgent();
     await Promise.all([refreshData()]);
 
-    const app = new Elysia({ prefix: '/api/v1', normalize: true })
+    const app = new Elysia({ prefix: '/api/v2', normalize: true })
         .use(openapi({
             path: '/docs',
             documentation: {
@@ -24,6 +25,7 @@ config({ path: '../.env', quiet: true });
                 }
             }
         }))
+        .use(admin)
         .listen(process.env.PORT || 3000);
 
     PINO.info({ hostname: app.server?.hostname, port: app.server?.port }, `Server started`);
