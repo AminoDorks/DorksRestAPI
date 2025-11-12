@@ -2,7 +2,7 @@ import { Elysia } from 'elysia';
 import { openapi } from '@elysiajs/openapi';
 import { config } from 'dotenv';
 
-import { PINO } from './constants';
+import { PINO, STANDARD_PORT } from './constants';
 import { connectAdb, loadFridaAgent } from './utils/fridaWrapper';
 import { refreshData } from './utils/refresh';
 import { admin } from './modules/admin';
@@ -21,12 +21,12 @@ config({ path: '../.env', quiet: true });
                 info: {
                     title: 'Dorks REST API',
                     version: '1.0.0',
-                    description: 'REST API for bypassing Google Play Integrity and Keystore vulnerabilities'
+                    description: 'REST API for bypassing Aminoapps Google Play Integrity and Keystore vulnerabilities'
                 }
             }
         }))
         .use(admin)
-        .listen(process.env.PORT || 3000);
+        .listen(process.env.PORT || STANDARD_PORT);
 
     PINO.info({ hostname: app.server?.hostname, port: app.server?.port }, `Server started`);
 })();

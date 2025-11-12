@@ -75,7 +75,9 @@ export const loadFridaAgent = async () => {
 };
 
 const processFridaCommand = async <T>(handler: () => Promise<T>): Promise<T | undefined> => {
-    if (isRestarting || script.isDestroyed) {
+    if (isRestarting) return;
+    
+    if (script.isDestroyed) {
         PINO.info('Restarting frida agent');
         isRestarting = true;
         await loadFridaAgent();
