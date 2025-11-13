@@ -117,6 +117,7 @@ const sendPlayIntegrityToken = () => {
 };
 
 rpc.exports = {
+    hasAlias: hasAlias,
     createKeyPair: createKeyPair,
     deleteEntry: deleteEntry,
     getCertificateChain: getCertificateChain,

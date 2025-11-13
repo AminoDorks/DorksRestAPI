@@ -88,6 +88,10 @@ const processFridaCommand = async <T>(handler: () => Promise<T>): Promise<T | un
     return await handler();
 };
 
+export const hasAlias = async (userId: string): Promise<boolean | undefined> => {
+    return await processFridaCommand<boolean>(async () => await fridaAgent.hasAlias(`auth-keys-${userId}`));
+}
+
 export const createKeyPair = async (userId: string): Promise<boolean | undefined> => {
     return await processFridaCommand<boolean>(async () => await fridaAgent.createKeyPair(`auth-keys-${userId}`));
 };

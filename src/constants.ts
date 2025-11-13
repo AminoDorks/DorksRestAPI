@@ -9,6 +9,9 @@ export const STANDARD_PORT = 3000;
 export const PRISMA = new PrismaClient();
 export const ENCODER = new TextEncoder();
 
+export const success = t.Literal('Success.');
+export type success = typeof success.static;
+
 export const API_MESSAGE_SHAPE = {
     timestamp: t.Number({
         description: 'Timestamp in milliseconds',

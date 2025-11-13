@@ -52,7 +52,6 @@ export namespace AdminModel {
     export const forbidden = t.Literal('Forbidden. You need to be an admin.');
     export const alreadyExists = t.Literal('User already exists.');
     export const notFound = t.Literal('User not found.');
-    export const success = t.Literal('Success.');
 
     export type addUserBody = typeof addUserBody.static;
     export type setStatusParams = typeof setStatusParams.static;
@@ -61,5 +60,4 @@ export namespace AdminModel {
     export type forbidden = typeof forbidden.static;
     export type alreadyExists = typeof alreadyExists.static;
     export type notFound = typeof notFound.static;
-    export type success = typeof success.static;
 };

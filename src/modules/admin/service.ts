@@ -1,4 +1,4 @@
-import { CACHE, PRISMA } from "../../constants";
+import { CACHE, PRISMA, success } from "../../constants";
 import { buildResponse, md5Hash } from "../../utils/utils";
 import { AdminModel } from "./model";
 
@@ -14,7 +14,7 @@ export abstract class Admin {
             }
         });
         CACHE.push(user.apiKey);
-        return buildResponse(200, AdminModel.success.const, { user });
+        return buildResponse(200, success.const, { user });
     };
 
     static async setStatus({ userId, isActive }: AdminModel.setStatusParams) {
@@ -25,13 +25,13 @@ export abstract class Admin {
             data: { isActive }
         });
         user.isActive ? CACHE.push(user.apiKey) : CACHE.splice(CACHE.indexOf(user.apiKey), 1);
-        return buildResponse(200, AdminModel.success.const, { user });
+        return buildResponse(200, success.const, { user });
     };
 
     static async getUser({ userId }: AdminModel.getUserParams) {
         const user = await PRISMA.user.findFirst({ where: { id: userId } });
         if (!user) return AdminModel.notFound.const;
 
-        return buildResponse(200, AdminModel.success.const, { user });
+        return buildResponse(200, success.const, { user });
     };
 };

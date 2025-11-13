@@ -10,10 +10,20 @@ export const admin = new Elysia({ prefix: '/admin' })
         }
     })
 
-    .post('/users/add', async ({ body }) => {
-        const response = await Admin.addUser(body);
+    .get('/users/:userId', async ({ params }) => {
+        return await Admin.getUser(params);
+    }, {
+        params: AdminModel.getUserParams,
+        headers: AdminModel.headers,
+        response: {
+            200: AdminModel.userResponse,
+            403: AdminModel.forbidden,
+            404: AdminModel.notFound
+        }
+    })
 
-        return response;
+    .post('/users/add', async ({ body }) => {
+        return await Admin.addUser(body);
     }, {
         body: AdminModel.addUserBody,
         headers: AdminModel.headers,
@@ -25,25 +35,9 @@ export const admin = new Elysia({ prefix: '/admin' })
     })
 
     .post('/users/status/:userId/:isActive', async ({ params }) => {
-        const response = await Admin.setStatus(params)
-
-        return response;
+        return await Admin.setStatus(params);
     }, {
         params: AdminModel.setStatusParams,
-        headers: AdminModel.headers,
-        response: {
-            200: AdminModel.userResponse,
-            403: AdminModel.forbidden,
-            404: AdminModel.notFound
-        }
-    })
-
-    .get('/users/:userId', async ({ params }) => {
-        const response = await Admin.getUser(params);
-
-        return response;
-    }, {
-        params: AdminModel.getUserParams,
         headers: AdminModel.headers,
         response: {
             200: AdminModel.userResponse,
